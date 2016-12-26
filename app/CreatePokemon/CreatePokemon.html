@@ -12,12 +12,24 @@
 <form name="pokemonForm" novalidate>
     <div class="form-group">
         <label>Имя</label>
-        <input class="form-control" data-ng-model="vm.newPokemon.name" type="text" placeholder="Имя" required ng-minlength="3">
+        <input class="form-control" data-ng-model="vm.newPokemon.name" type="text" name="newName" placeholder="Имя" required ng-minlength="3">
+        <!-- <pre>pokemonForm.newName.$error = {{ pokemonForm.newName.$error | json }}</pre> -->
+        <!-- <pre>pokemonForm.newName.$dirty = {{ pokemonForm.newName.$dirty | json }}</pre> -->
+        <div ng-messages="pokemonForm.newName.$error" ng-if="pokemonForm.newName.$dirty" role="alert">
+          <div ng-message="required" class="alert alert-danger">Обязательно введите имя</div>
+          <div ng-message="minlength" class="alert alert-danger">Минимальная длина для имени - 3 символа</div>
+        </div>
     </div>
+
     <div class="form-group">
         <label>Вес</label>
-        <input class="form-control" data-ng-model="vm.newPokemon.weight" type="text" placeholder="Вес"
+        <input class="form-control" data-ng-model="vm.newPokemon.weight" type="text" name="newWeight" placeholder="Вес"
                data-ng-pattern="/^(\d)+$/">
+        <!-- <pre>pokemonForm.newWeight.$error = {{ pokemonForm.newWeight.$error | json }}</pre> -->
+        <!-- <pre>pokemonForm.newWeight.$dirty = {{ pokemonForm.newWeight.$dirty | json }}</pre> -->
+        <div ng-messages="pokemonForm.newWeight.$error" ng-if="pokemonForm.newWeight.$dirty" role="alert">
+          <div ng-message="pattern" class="alert alert-danger">Вес должен иметь числовое значение</div>
+        </div>
     </div>
     <div class="checkbox">
         <label>
