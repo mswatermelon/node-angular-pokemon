@@ -2,7 +2,7 @@
 
 angular
     .module('myApp')
-    .controller('PokemonDetailCtrl', function ($state, $stateParams, PokemonService) {
+    .controller('PokemonDetailCtrl', function ($state, $stateParams, PokemonService, $q) {
 
         var vm = this;
 
@@ -13,6 +13,26 @@ angular
                 vm.pokemon = pokemonData.data;
             });
 
+
+
+        vm.renameItem = function(newName){
+          // Use service
+          var defer = $q.defer();
+
+          if(newName && vm.pokemon.name != newName && newName.length > 3){
+            vm.pokemon.name = newName;
+            defer.resolve();
+          }
+          else{
+            defer.reject();
+          }
+
+          return defer.promise;
+        }
+
+        vm.toggleRename = function(){
+          vm.rename = false;
+        }
     }).component('pokemonDetail', {
         //components match only elements
         template: '<p>Вес: {{$ctrl.pokemon.weight}}, рост: {{$ctrl.pokemon.height}}</p>',
@@ -105,6 +125,7 @@ angular
                     }
 
                     if (form.$valid) {
+                        console.log(scope, childScope.editValue);
                         scope.ndSaveFn(childScope.editValue).finally(function () {
                             cancel();
                         });
@@ -114,9 +135,9 @@ angular
                 function initInput() {
 
                     originalValue = angular.copy(scope.ndModel);
-                    console.log(originalValue)
+                    // console.log(originalValue)
                     $templateRequest('components/nd-inline-edit.html').then(function (template) {
-                        console.log(template);
+                        // console.log(template);
                         editValue = originalValue;
                         childScope = scope.$new();
                         angular.extend(childScope, {

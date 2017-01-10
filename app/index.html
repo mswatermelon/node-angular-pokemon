@@ -15,15 +15,14 @@
   <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body>
+<body data-ng-controller="mainMenuCtrl">
 <div class="container">
 
   <div class="panel panel-default">
     <div class="panel-body">
 
       <div class="btn-group" role="group">
-        <a class="btn btn-default" data-ui-sref="pokeList">Список</a>
-        <a class="btn btn-default" data-ui-sref="createNewPokemon">Добавить нового</a>
+        <a class="btn btn-default" data-ng-repeat="item in items" data-ui-sref="{{item.ref}}" data-ui-sref-active="active">{{item.text}}</a>
       </div>
 
     </div>

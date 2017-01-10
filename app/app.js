@@ -47,4 +47,14 @@ config(function($stateProvider) {
           .state(pokeListState)
           .state(createPokemonState)
           .state(pokemonDetailState);
+}).controller('mainMenuCtrl', function ($scope) {
+  $scope.items = [
+    {
+      ref: 'pokeList',
+      text: 'Список покемонов'
+    }, {
+      ref: 'createNewPokemon',
+      text: 'Добавить нового покемона'
+    }
+  ];
 });
